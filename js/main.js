@@ -18,18 +18,27 @@ BubbleProblem.Game = (function($){
 		var startGame = function(){
 
 			$("#divbutton").unbind("click", startGame );
-
-			console.log("here");
+			
 			BubbleProblem.ui.hideDialog();
 			curBubble = getNextBubble();
-			//$("#dialog").hide("slow");			
+
+			$("#divmain").bind("click", clickGameScreen);			
+
+
+		};
+
+		var clickGameScreen = function(event){
+
+			var angle = BubbleProblem.ui.getAngle(event, curBubble);
+			
+
 
 		};
 
 		var getNextBubble  = function(){
 
 			var bubble = BubbleProblem.Bubble.create();
-			bubble.getSprite.addClass("bubble_cur");
+			bubble.getSprite().addClass("bubble_cur");
 			$("#gamefield").append(bubble.getSprite());
 			return bubble;
 

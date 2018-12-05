@@ -22,7 +22,7 @@ BubbleProblem.Bubble = (function($){
 	};
 
 
-
+	return Bubble;
 
 
 })(jQuery);
