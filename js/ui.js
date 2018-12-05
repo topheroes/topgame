@@ -12,7 +12,7 @@ BubbleProblem.ui = (function($){
 		getBubbleCoords: function(bubble){
 
 			var coords = bubble.getSprite().position();
-			return {x: coords.left, y: coords.top };
+			return {x: coords.left + 22  , y: coords.top + 22 };
 
 		},
 
@@ -28,13 +28,26 @@ BubbleProblem.ui = (function($){
 
 			var clickCoords = ui.getClickCoords(event);
 			var bubbleCoords =  ui.getBubbleCoords(curBubble);
+			var gameFieldOffset = $("#gamefield").offset();
 
-			console.log("bubbleCoords.x", bubbleCoords.x, "bubbleCoords.y", bubbleCoords.y,
-					"clickCoords.x", clickCoords.x, "clickCoords.y", clickCoords.y);
+
+
+			var angle = Math.atan( (clickCoords.x - bubbleCoords.x - gameFieldOffset.left ) /  
+				( bubbleCoords.y - clickCoords.y + gameFieldOffset.top )       );
+
+
+			return angle;
 				
 
 		},
 
+		shootBubble: function(curBubble, coords, duration){
+
+
+			curBubble.getSprite().animate({ top: coords.y, left: coords.x  }, 
+				{duration: duration, easing: "linear"} );
+
+		},
 
 
 
