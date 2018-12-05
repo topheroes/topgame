@@ -29,6 +29,9 @@ BubbleProblem.Game = (function($){
 
 		var clickGameScreen = function(event){
 
+			var aud = new Audio("laser.mp3");
+			aud.play();
+
 			var angle = BubbleProblem.ui.getAngle(event, curBubble);
 			var distance = 1000;
 			var duration = 500;
