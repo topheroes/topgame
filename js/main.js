@@ -10,6 +10,10 @@ BubbleProblem.Game = (function($){
 		var curBubble;
 		var board;
 
+		var numBubbles;
+		var MAX_BUBBLES = 40;
+
+
 		this.init = function(){
 
 			$("#divbutton").bind("click", startGame );
@@ -21,6 +25,10 @@ BubbleProblem.Game = (function($){
 			$("#divbutton").unbind("click", startGame );
 			
 			BubbleProblem.ui.hideDialog();
+
+
+			numBubbles = MAX_BUBBLES;
+
 			curBubble = getNextBubble();
 
 			board = new BubbleProblem.Board();
@@ -40,12 +48,24 @@ BubbleProblem.Game = (function($){
 			var angle = BubbleProblem.ui.getAngle(event, curBubble);
 			var distance = 1000;
 			var duration = 500;
-			var distX = Math.sin(angle) * distance;
-			var distY = Math.cos(angle) * distance;
 
-			var bubbleCoords = BubbleProblem.ui.getBubbleCoords(curBubble);
-			var coords = { x: bubbleCoords.x + distX, y: bubbleCoords.y - distY  };
+			var collision = BubbleProblem.CollisionDetector.findIntersection(curBubble, board, angle);
+			if( collision){
+				var coords = collision.coords;
+				duration = Math.round(duration * collision.distToCollision/distance);
+			}
+			else
+			{
+
+				var distX = Math.sin(angle) * distance;
+				var distY = Math.cos(angle) * distance;
+
+				var bubbleCoords = BubbleProblem.ui.getBubbleCoords(curBubble);
+				var coords = { x: bubbleCoords.x + distX, y: bubbleCoords.y - distY  };
+			}
 			BubbleProblem.ui.shootBubble(curBubble, coords, duration );
+			curBubble = getNextBubble();
+			
 
 
 		};
@@ -55,6 +75,11 @@ BubbleProblem.Game = (function($){
 			var bubble = BubbleProblem.Bubble.create();
 			bubble.getSprite().addClass("bubble_cur");
 			$("#gamefield").append(bubble.getSprite());
+
+			BubbleProblem.ui.drawRemainingBubble(numBubbles);
+			numBubbles--;
+
+
 			return bubble;
 
 		}

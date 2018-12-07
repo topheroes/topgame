@@ -9,6 +9,15 @@ BubbleProblem.Bubble = (function($){
 		this.getRow = function(){return rowNum;};
 		this.getCol = function(){return colNum;};
 		this.getType = function(){return type;};
+		this.getCoords = function(){
+
+			var coords  = {left: that.getCol()*BubbleProblem.ui.BUBBLE_DIMS/2 
+						+ BubbleProblem.ui.BUBBLE_DIMS/2,
+						top: that.getRow() * BubbleProblem.ui.ROW_HEIGHT + 
+						BubbleProblem.ui.BUBBLE_DIMS/2   };
+			return coords; 
+
+		}
 
 	};
 

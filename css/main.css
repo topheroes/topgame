@@ -99,3 +99,15 @@
 	left: 150px;
 	top: 0;
 }
+
+#remaining_bubbles{
+
+	position: absolute;
+
+	font-size: 40px;
+	color: red;
+	top: 450px;
+	left: 325px;
+
+
+}

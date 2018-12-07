@@ -57,11 +57,20 @@ BubbleProblem.ui = (function($){
 		shootBubble: function(curBubble, coords, duration){
 
 
-			curBubble.getSprite().animate({ top: coords.y, left: coords.x  }, 
+			curBubble.getSprite().animate({ top: coords.y - BubbleProblem.ui.BUBBLE_DIMS/2 , 
+				left: coords.x - BubbleProblem.ui.BUBBLE_DIMS/2 }, 
 				{duration: duration, easing: "linear"} );
 
 		},
 
+
+		drawRemainingBubble: function(numBubbles)
+		{
+
+
+			$("#remaining_bubbles").text(numBubbles);
+
+		},
 
 		drawBoard: function(board){
 			var rows = board.getRows();
