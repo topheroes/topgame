@@ -3,7 +3,15 @@ var BubbleProblem = window.BubbleProblem || {};
 
 BubbleProblem.ui = (function($){
 
+
+
+
 	var ui = {
+
+
+		BUBBLE_DIMS: 44,
+		ROW_HEIGHT: 40,
+
 		hideDialog : function(){
 
 			$("#dialog").hide("slow");			
@@ -34,6 +42,11 @@ BubbleProblem.ui = (function($){
 
 			var angle = Math.atan( (clickCoords.x - bubbleCoords.x - gameFieldOffset.left ) /  
 				( bubbleCoords.y - clickCoords.y + gameFieldOffset.top )       );
+			
+
+			if( clickCoords.y > (bubbleCoords.y+gameFieldOffset.top)  ){
+				angle += Math.PI;
+			}
 
 
 			return angle;
@@ -50,6 +63,38 @@ BubbleProblem.ui = (function($){
 		},
 
 
+		drawBoard: function(board){
+			var rows = board.getRows();
+			var gamefield = $("#gamefield");
+
+			for(var i = 0; i < rows.length; i++ ){
+
+
+				var row = rows[i];
+
+
+				for(var j = 0; j < row.length; j++ ){
+
+					var bubble = row[j];
+					if(bubble){
+
+						var sprite = bubble.getSprite();
+						gamefield.append(sprite);
+						var left = j*ui.BUBBLE_DIMS/2;
+						var top = i*ui.ROW_HEIGHT;
+						sprite.css({top: top, left: left});
+
+
+
+					}
+
+				}
+
+			}
+
+
+
+		},
 
 
 	}

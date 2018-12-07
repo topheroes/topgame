@@ -8,6 +8,7 @@ BubbleProblem.Game = (function($){
 	var Game = function(){
 
 		var curBubble;
+		var board;
 
 		this.init = function(){
 
@@ -21,6 +22,10 @@ BubbleProblem.Game = (function($){
 			
 			BubbleProblem.ui.hideDialog();
 			curBubble = getNextBubble();
+
+			board = new BubbleProblem.Board();
+			BubbleProblem.ui.drawBoard(board);
+
 
 			$("#divmain").bind("click", clickGameScreen);			
 
